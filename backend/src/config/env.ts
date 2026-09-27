@@ -31,6 +31,8 @@ export const env = {
   // production; it always implies Secure, since browsers reject None cookies without it.
   cookieSameSite: parseSameSite(),
   // Comma-separated list so staging/preview + production origins can be whitelisted at once.
+  // Entries may contain a single `*` to match one hostname label, e.g.
+  //   https://my-app-*-my-team.vercel.app   (Vercel per-deployment / preview URLs)
   // Never falls back to a wildcard — every origin must be explicitly listed.
   corsOrigins: (process.env.CORS_ORIGIN ?? 'http://localhost:3000')
     .split(',')
@@ -39,3 +41,12 @@ export const env = {
   rateLimitWindowMs: Number(process.env.RATE_LIMIT_WINDOW_MS ?? 900000),
   rateLimitMax: Number(process.env.RATE_LIMIT_MAX ?? 100),
 };
+
+/** True if `origin` exactly matches, or matches a `*`-pattern in, the CORS whitelist. */
+export function isAllowedOrigin(origin: string): boolean {
+  return env.corsOrigins.some((entry) => {
+    if (!entry.includes('*')) return entry === origin;
+    const escaped = entry.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '[a-z0-9-]+');
+    return new RegExp(`^${escaped}$`, 'i').test(origin);
+  });
+}

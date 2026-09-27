@@ -3,11 +3,12 @@ import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import { env } from '@/config/env';
+import { env, isAllowedOrigin } from '@/config/env';
 import routes from '@/routes';
 import { errorHandler } from '@/middleware/errorHandler';
 import { notFound } from '@/middleware/notFound';
 import { apiLimiter } from '@/middleware/rateLimit';
+import { HttpError } from '@/utils/httpError';
 
 export function createApp() {
   const app = express();
@@ -26,10 +27,11 @@ export function createApp() {
       origin(origin, callback) {
         // Allow same-origin/non-browser requests (no Origin header) and any explicitly
         // whitelisted origin. Never falls back to a wildcard when credentials are used.
-        if (!origin || env.corsOrigins.includes(origin)) {
+        if (!origin || isAllowedOrigin(origin)) {
           return callback(null, true);
         }
-        return callback(new Error('Not allowed by CORS'));
+        // A 403 (not a generic 500) so a mis-configured CORS_ORIGIN is obvious in devtools.
+        return callback(HttpError.forbidden(`Origin ${origin} is not allowed`));
       },
       credentials: true,
     }),
