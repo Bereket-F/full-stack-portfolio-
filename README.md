@@ -96,7 +96,8 @@ Admin dashboard: http://localhost:3000/admin/login
 
 | Variable                                  | Description                                                           |
 | ----------------------------------------- | --------------------------------------------------------------------- |
-| `DATABASE_URL`                            | Postgres connection string                                            |
+| `DATABASE_URL`                            | Postgres connection string used at runtime (a pooled URL is fine)     |
+| `DIRECT_DATABASE_URL`                     | Direct, non-pooled connection used only by Prisma migrations. Locally identical to `DATABASE_URL`. On Neon use the host **without** `-pooler` — poolers can't hold Prisma's migration advisory lock (error P1002) |
 | `PORT`                                    | API port (default 4000)                                               |
 | `NODE_ENV`                                | development / production                                              |
 | `JWT_SECRET`                              | Secret used to sign auth tokens (long random string)                  |
@@ -169,7 +170,7 @@ See `backend/tests/README.md` and `frontend/e2e/README.md` for details.
 ### 10. Deployment
 
 - **Frontend** → Vercel: set `NEXT_PUBLIC_API_URL` to your deployed backend URL.
-- **Backend** → Render / Railway / Fly.io: set `DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN` (your Vercel URL). Run `npx prisma migrate deploy` on release.
+- **Backend** → Render / Railway / Fly.io: set `DATABASE_URL`, `DIRECT_DATABASE_URL`, `JWT_SECRET`, `COOKIE_SAMESITE=none`, `CORS_ORIGIN` (your Vercel URL). Run `npx prisma migrate deploy` on release.
 - **Database** → Neon / Supabase / Railway Postgres, or any managed Postgres.
 - Nothing is hardcoded to a specific provider — everything is environment-variable driven, and `docker-compose.yml` can run the whole stack (Postgres + backend + frontend) for self-hosting.
 

@@ -6,8 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  // Runtime queries (may go through a connection pooler, e.g. Neon's `-pooler` host).
+  url       = env("DATABASE_URL")
+  // Migrations need a DIRECT (non-pooled) connection: poolers can't hold the advisory
+  // lock Prisma Migrate uses, causing P1002 timeouts. Falls back to DATABASE_URL locally.
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 enum Role {
