@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { optionalImageUrl } from '@/validators/common.validator';
 
 export const socialLinkSchema = z.object({
   id: z.string().optional(),
@@ -14,7 +15,7 @@ export const updateProfileSchema = z.object({
   bio: z.string().min(1).optional(),
   location: z.string().optional(),
   email: z.string().email().optional(),
-  avatarUrl: z.string().url().optional().or(z.literal('')),
+  avatarUrl: optionalImageUrl,
   resumeUrl: z.string().url().optional().or(z.literal('')),
   seoTitle: z.string().optional(),
   seoDescription: z.string().optional(),

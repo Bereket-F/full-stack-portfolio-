@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    // Content images are admin-pasted URLs from arbitrary hosts (GitHub attachments, Imgur,
+    // etc.). Many of those redirect through signed/expiring URLs or lack file extensions,
+    // which the Next.js image proxy rejects with NOT_FOUND. Serving them directly makes any
+    // publicly reachable image URL work.
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
     ],

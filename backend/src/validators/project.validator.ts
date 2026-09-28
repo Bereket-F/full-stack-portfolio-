@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { imageUrl, optionalImageUrl } from '@/validators/common.validator';
 
 export const projectCategoryEnum = z.enum([
   'WEB',
@@ -24,8 +25,8 @@ export const createProjectSchema = z.object({
   role: z.string().optional(),
   challenges: z.string().optional(),
   features: z.array(z.string()).default([]),
-  coverImage: z.string().url().optional().or(z.literal('')),
-  screenshots: z.array(z.string().url()).default([]),
+  coverImage: optionalImageUrl,
+  screenshots: z.array(imageUrl).default([]),
   githubUrl: z.string().url().optional().or(z.literal('')),
   demoUrl: z.string().url().optional().or(z.literal('')),
   category: projectCategoryEnum.default('WEB'),

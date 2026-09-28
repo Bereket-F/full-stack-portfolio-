@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { optionalImageUrl } from '@/validators/common.validator';
 
 export const createBlogPostSchema = z.object({
   title: z.string().min(2).max(160),
@@ -9,7 +10,7 @@ export const createBlogPostSchema = z.object({
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug must be lowercase, alphanumeric, hyphen-separated')
     .optional(),
   excerpt: z.string().max(300).optional(),
-  coverImage: z.string().url().optional().or(z.literal('')),
+  coverImage: optionalImageUrl,
   content: z.string().min(1),
   status: z.enum(['DRAFT', 'PUBLISHED']).default('DRAFT'),
   tags: z.array(z.string().min(1)).default([]),
