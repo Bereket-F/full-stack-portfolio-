@@ -94,18 +94,18 @@ Admin dashboard: http://localhost:3000/admin/login
 
 **backend/.env**
 
-| Variable                                  | Description                                                           |
-| ----------------------------------------- | --------------------------------------------------------------------- |
-| `DATABASE_URL`                            | Postgres connection string used at runtime (a pooled URL is fine)     |
+| Variable                                  | Description                                                                                                                                                                                                       |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `DATABASE_URL`                            | Postgres connection string used at runtime (a pooled URL is fine)                                                                                                                                                 |
 | `DIRECT_DATABASE_URL`                     | Direct, non-pooled connection used only by Prisma migrations. Locally identical to `DATABASE_URL`. On Neon use the host **without** `-pooler` — poolers can't hold Prisma's migration advisory lock (error P1002) |
-| `PORT`                                    | API port (default 4000)                                               |
-| `NODE_ENV`                                | development / production                                              |
-| `JWT_SECRET`                              | Secret used to sign auth tokens (long random string)                  |
-| `JWT_EXPIRES_IN`                          | e.g. `7d`                                                             |
-| `COOKIE_NAME`                             | Name of the auth cookie                                               |
-| `COOKIE_SAMESITE`                         | `lax` (same-domain dev) or `none` (cross-domain prod, requires HTTPS) |
-| `CORS_ORIGIN`                             | Comma-separated list of exact trusted frontend origins (no wildcards) |
-| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX` | Rate limiting for sensitive routes                                    |
+| `PORT`                                    | API port (default 4000)                                                                                                                                                                                           |
+| `NODE_ENV`                                | development / production                                                                                                                                                                                          |
+| `JWT_SECRET`                              | Secret used to sign auth tokens (long random string)                                                                                                                                                              |
+| `JWT_EXPIRES_IN`                          | e.g. `7d`                                                                                                                                                                                                         |
+| `COOKIE_NAME`                             | Name of the auth cookie                                                                                                                                                                                           |
+| `COOKIE_SAMESITE`                         | `lax` (same-domain dev) or `none` (cross-domain prod, requires HTTPS)                                                                                                                                             |
+| `CORS_ORIGIN`                             | Comma-separated list of exact trusted frontend origins (no wildcards)                                                                                                                                             |
+| `RATE_LIMIT_WINDOW_MS` / `RATE_LIMIT_MAX` | Rate limiting for sensitive routes                                                                                                                                                                                |
 
 **frontend/.env.local**
 

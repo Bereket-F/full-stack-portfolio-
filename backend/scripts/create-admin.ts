@@ -20,7 +20,7 @@ async function main() {
 
   const email = await ask('Admin email: ');
   const password = await ask('Admin password (min 8 chars, visible as you type): ');
-
+ 
   if (!email.includes('@')) {
     console.error('Please provide a valid email.');
     process.exit(1);

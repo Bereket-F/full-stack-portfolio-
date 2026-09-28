@@ -2,9 +2,9 @@ import { SectionHeading } from '@/components/sections/section-heading';
 import { getProfile } from '@/lib/content';
 
 const FOCUS_AREAS = [
-  { tag: 'qa', label: 'Quality Assurance', detail: 'Manual + automated testing across UI, API, and performance layers.' },
-  { tag: 'backend', label: 'Backend Development', detail: 'REST APIs, relational schema design, authentication & authorization.' },
   { tag: 'frontend', label: 'Frontend Development', detail: 'React and Next.js interfaces with an eye for accessibility and polish.' },
+  { tag: 'backend', label: 'Backend Development', detail: 'REST APIs, relational schema design, authentication & authorization.' },
+  { tag: 'qa', label: 'Quality Assurance', detail: 'Manual + automated testing across UI, API, and performance layers.' },
 ];
 
 export async function About() {
