@@ -17,7 +17,7 @@ export const getBlogPostById = asyncHandler(async (req: Request, res: Response) 
   const post = await blogService.getBlogPostById(req.params.id);
   res.json({ data: post });
 });
-P
+
 export const createBlogPost = asyncHandler(async (req: Request, res: Response) => {
   const input = createBlogPostSchema.parse(req.body);
   const post = await blogService.createBlogPost(input);
