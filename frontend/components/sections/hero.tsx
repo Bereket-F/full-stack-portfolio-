@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowRight, Download, Github, Linkedin, Mail } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroPanel } from '@/components/sections/hero-panel';
 import { getProfile } from '@/lib/content';
@@ -19,23 +20,45 @@ export async function Hero() {
     'I build reliable digital products and test complex systems from requirements to release.';
 
   return (
-    <section className="bg-grid relative mask-fade-b overflow-hidden">
+    <section className="bg-grid mask-fade-b relative overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute -top-32 right-0 h-[420px] w-[420px] rounded-full bg-primary/20 blur-[120px]"
       />
       <div className="container relative grid min-h-[88vh] grid-cols-1 items-center gap-16 py-24 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="animate-fade-up space-y-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-xs text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-success" />
-            open to opportunities
+          <div className="flex items-center gap-4">
+            {profile?.avatarUrl && (
+              <div className="glow relative h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-primary/40 sm:h-24 sm:w-24">
+                <Image
+                  src={profile.avatarUrl}
+                  alt={name}
+                  fill
+                  sizes="96px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            )}
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 font-mono text-xs text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-success" />
+              open to opportunities
+            </div>
           </div>
 
           <h1 className="font-display text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
             {name}
           </h1>
 
-          <p className="text-gradient font-display text-xl font-medium sm:text-2xl">{role}</p>
+          <div className="space-y-2">
+            <p className="text-gradient font-display text-xl font-medium sm:text-2xl">{role}</p>
+            {profile?.location && (
+              <p className="inline-flex items-center gap-1.5 font-mono text-sm text-muted-foreground">
+                <MapPin className="h-3.5 w-3.5 text-primary" />
+                {profile.location}
+              </p>
+            )}
+          </div>
 
           <p className="max-w-xl text-balance text-base text-muted-foreground sm:text-lg">
             {tagline}
@@ -51,9 +74,9 @@ export async function Hero() {
               <Link href="/#contact">Contact Me</Link>
             </Button>
             {profile?.resumeUrl && (
-              <Button asChild size="lg" variant="ghost">
-                <Link href={profile.resumeUrl} target="_blank">
-                  Download CV <Download className="h-4 w-4" />
+              <Button asChild size="lg" variant="outline">
+                <Link href={profile.resumeUrl} target="_blank" rel="noopener noreferrer">
+                  <Download className="h-4 w-4" /> Download CV
                 </Link>
               </Button>
             )}
