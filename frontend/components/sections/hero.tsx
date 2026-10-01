@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { ArrowRight, Download, Github, Linkedin, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroPanel } from '@/components/sections/hero-panel';
 import { getProfile } from '@/lib/content';
@@ -100,15 +100,6 @@ export async function Hero() {
                   </Link>
                 );
               })}
-            {profile?.email && (
-              <Link
-                href={`mailto:${profile.email}`}
-                aria-label="Email"
-                className="flex h-10 w-10 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-              >
-                <Mail className="h-4 w-4" />
-              </Link>
-            )}
           </div>
         </div>
 

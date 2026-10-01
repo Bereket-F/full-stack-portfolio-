@@ -17,7 +17,8 @@ export async function Footer() {
       <div className="container flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
         <div className="space-y-1">
           <p className="font-mono text-sm text-muted-foreground">
-            <span className="text-primary">$</span> echo &quot;built by {profile?.name ?? 'Bereket Fanose'}&quot;
+            <span className="text-primary">$</span> echo &quot;built by{' '}
+            {profile?.name ?? 'Bereket Fanose'}&quot;
           </p>
           <p className="text-xs text-muted-foreground">
             &copy; {year} {profile?.name ?? 'Bereket Fanose'}. All rights reserved.
@@ -40,15 +41,6 @@ export async function Footer() {
               </Link>
             );
           })}
-          {profile?.email && (
-            <Link
-              href={`mailto:${profile.email}`}
-              aria-label="Email"
-              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
-            >
-              <Mail className="h-4 w-4" />
-            </Link>
-          )}
         </div>
       </div>
     </footer>
